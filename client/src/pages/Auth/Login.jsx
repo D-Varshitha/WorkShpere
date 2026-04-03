@@ -16,8 +16,19 @@ const Login = () => {
     setError('');
     try {
       const response = await api.post('/auth/login', { email, password });
-      login(response.data);
-      navigate('/');
+      const userData = response.data;
+      login(userData);
+      
+      // Strict role-based redirect
+      if (userData.role === 'admin') {
+        navigate('/admin');
+      } else if (userData.role === 'manager') {
+        navigate('/manager');
+      } else if (userData.role === 'employee') {
+        navigate('/employee');
+      } else {
+        navigate('/');
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     }

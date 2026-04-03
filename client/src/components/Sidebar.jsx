@@ -19,10 +19,11 @@ const Sidebar = () => {
       { name: 'Projects', icon: Briefcase, path: '/admin/projects' },
       { name: 'Attendance', icon: ClipboardList, path: '/admin/attendance' },
       { name: 'Leave Requests', icon: Calendar, path: '/admin/leaves' },
+      { name: 'Facilities', icon: Building2, path: '/admin/facilities' },
       { name: 'Feedback', icon: MessageSquare, path: '/admin/feedback' },
       { name: 'Assets & Maintenance', icon: Building2, path: '/admin/assets' },
       { name: 'Overwork Risks', icon: Users, path: '/admin/overwork-risks' },
-      { name: 'Seating', icon: Building2, path: '/seating' }
+      { name: 'Seating', icon: Building2, path: '/admin/seating' }
     ],
     manager: [
       { name: 'Dashboard', icon: LayoutDashboard, path: '/manager' },
@@ -33,7 +34,7 @@ const Sidebar = () => {
       { name: 'Attendance', icon: ClipboardList, path: '/manager/attendance' },
       { name: 'Wellness', icon: Heart, path: '/manager/wellness' },
       { name: 'Announcements', icon: Megaphone, path: '/manager/announcements' },
-      { name: 'Seating', icon: Building2, path: '/seating' }
+      { name: 'Seating', icon: Building2, path: '/manager/seating' }
     ],
     employee: [
       { name: 'Dashboard', icon: LayoutDashboard, path: '/employee' },
@@ -45,7 +46,7 @@ const Sidebar = () => {
       { name: 'Feedback', icon: MessageSquare, path: '/employee/feedback' },
       { name: 'My Assets', icon: Building2, path: '/employee/assets' },
       { name: 'Wellness', icon: Heart, path: '/employee/wellness' },
-      { name: 'Seating', icon: Building2, path: '/seating' }
+      { name: 'Seating', icon: Building2, path: '/employee/seating' }
     ]
   };
 

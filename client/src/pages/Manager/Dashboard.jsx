@@ -28,43 +28,7 @@ const ManagerDashboard = () => {
           </div>
         ))}
       </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-          <h2 className="text-lg font-bold mb-4">Team Task Assignment</h2>
-          <form className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Task Title</label>
-              <input type="text" className="mt-1 block w-full px-4 py-2 bg-gray-50 border rounded-lg focus:ring-blue-500 outline-none" placeholder="e.g., Update README" />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Assign To</label>
-              <select className="mt-1 block w-full px-4 py-2 bg-gray-50 border rounded-lg focus:ring-blue-500 outline-none">
-                <option>Employee A</option>
-                <option>Employee B</option>
-              </select>
-            </div>
-            <button className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Assign Task</button>
-          </form>
-        </div>
-
-        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-          <h2 className="text-lg font-bold mb-4">Leave Approvals Pending (Team)</h2>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <p className="font-bold">Mike Chen</p>
-                <p className="text-sm text-gray-500">3 days (Vacation)</p>
-              </div>
-              <div className="flex gap-2">
-                <button className="px-3 py-1 bg-green-600 text-white rounded text-xs">Approve</button>
-                <button className="px-3 py-1 bg-red-600 text-white rounded text-xs">Reject</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 };
 

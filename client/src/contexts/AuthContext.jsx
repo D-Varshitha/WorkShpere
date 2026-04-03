@@ -41,15 +41,8 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token');
   };
 
-  // For the Role Switcher requirement: allow forced role override for demo/testing
-  const switchRole = (newRole) => {
-    const updatedUser = { ...user, role: newRole };
-    setUser(updatedUser);
-    localStorage.setItem('user', JSON.stringify(updatedUser));
-  };
-
   return (
-    <AuthContext.Provider value={{ user, login, logout, switchRole, loading }}>
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
       {!loading && children}
     </AuthContext.Provider>
   );

@@ -58,12 +58,27 @@ const RoleBasedRoute = () => {
   }
 };
 
+const AccessDenied = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+    <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
+      <h2 className="text-3xl font-extrabold text-red-600 mb-4">Access Denied</h2>
+      <p className="text-gray-600 mb-6">You do not have permission to view this page.</p>
+      <button 
+        onClick={() => window.location.href = '/'}
+        className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+      >
+        Go to Dashboard
+      </button>
+    </div>
+  </div>
+);
+
 const RequireRole = ({ roles, children }) => {
   const { user, loading } = useAuth();
 
   if (loading) return null;
   if (!user) return <Navigate to="/login" replace />;
-  if (!roles.includes(user.role)) return <Navigate to="/" replace />;
+  if (!roles.includes(user.role)) return <Navigate to="/access-denied" replace />;
 
   return children;
 };
@@ -75,10 +90,11 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          
+          <Route path="/access-denied" element={<AccessDenied />} />
+
           <Route element={<DashboardLayout />}>
             <Route path="/" element={<RoleBasedRoute />} />
-            
+...
             {/* Admin Routes */}
             <Route path="/admin" element={<RequireRole roles={['admin']}><AdminDashboard /></RequireRole>} />
             <Route path="/admin/employees" element={<RequireRole roles={['admin']}><AdminEmployees /></RequireRole>} />
@@ -86,18 +102,21 @@ const App = () => {
             <Route path="/admin/attendance" element={<RequireRole roles={['admin']}><AdminAttendance /></RequireRole>} />
             <Route path="/admin/feedback" element={<RequireRole roles={['admin']}><AdminFeedback /></RequireRole>} />
             <Route path="/admin/leaves" element={<RequireRole roles={['admin']}><Leaves /></RequireRole>} />
+            <Route path="/admin/facilities" element={<RequireRole roles={['admin']}><Facilities /></RequireRole>} />
             <Route path="/admin/assets" element={<RequireRole roles={['admin']}><AdminAssetMaintenance /></RequireRole>} />
             <Route path="/admin/overwork-risks" element={<RequireRole roles={['admin']}><AdminOverworkRisks /></RequireRole>} />
+            <Route path="/admin/seating" element={<RequireRole roles={['admin']}><Seating /></RequireRole>} />
             
             {/* Manager Routes */}
             <Route path="/manager" element={<RequireRole roles={['manager']}><ManagerDashboard /></RequireRole>} />
             <Route path="/manager/team" element={<RequireRole roles={['manager']}><ManagerTeams /></RequireRole>} />
             <Route path="/manager/projects" element={<RequireRole roles={['manager']}><ManagerProjects /></RequireRole>} />
-            <Route path="/manager/leaves" element={<RequireRole roles={['manager', 'admin']}><Leaves /></RequireRole>} />
-            <Route path="/manager/facilities" element={<RequireRole roles={['manager', 'admin']}><Facilities /></RequireRole>} />
+            <Route path="/manager/leaves" element={<RequireRole roles={['manager']}><Leaves /></RequireRole>} />
+            <Route path="/manager/facilities" element={<RequireRole roles={['manager']}><Facilities /></RequireRole>} />
             <Route path="/manager/attendance" element={<RequireRole roles={['manager']}><ManagerAttendance /></RequireRole>} />
             <Route path="/manager/wellness" element={<RequireRole roles={['manager']}><ManagerWellness /></RequireRole>} />
             <Route path="/manager/announcements" element={<RequireRole roles={['manager']}><ManagerAnnouncements /></RequireRole>} />
+            <Route path="/manager/seating" element={<RequireRole roles={['manager']}><Seating /></RequireRole>} />
             
             {/* Employee Routes */}
             <Route path="/employee" element={<RequireRole roles={['employee']}><EmployeeDashboard /></RequireRole>} />
@@ -109,14 +128,10 @@ const App = () => {
             <Route path="/employee/facilities" element={<RequireRole roles={['employee']}><Facilities /></RequireRole>} />
             <Route path="/employee/assets" element={<RequireRole roles={['employee']}><EmployeeAssets /></RequireRole>} />
             <Route path="/employee/wellness" element={<RequireRole roles={['employee']}><EmployeeWellness /></RequireRole>} />
+            <Route path="/employee/seating" element={<RequireRole roles={['employee']}><Seating /></RequireRole>} />
             
-            {/* Shared */}
-            <Route path="/leaves" element={<RequireRole roles={['employee', 'manager', 'admin']}><Leaves /></RequireRole>} />
-            <Route path="/facilities" element={<RequireRole roles={['employee', 'manager', 'admin']}><Facilities /></RequireRole>} />
-            <Route path="/seating" element={<RequireRole roles={['employee', 'manager', 'admin']}><Seating /></RequireRole>} />
-
-            {/* Notifications: visible to all roles */}
-            <Route path="/notifications" element={<Notifications />} />
+            {/* Notifications: visible to all roles but protected */}
+            <Route path="/notifications" element={<RequireRole roles={['employee', 'manager', 'admin']}><Notifications /></RequireRole>} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" />} />

@@ -3,10 +3,8 @@ import { User, ChevronDown, LogOut } from 'lucide-react';
 import { useState } from 'react';
 
 const Navbar = () => {
-  const { user, logout, switchRole } = useAuth();
+  const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-
-  const roles = ['admin', 'manager', 'employee'];
 
   return (
     <nav className="h-16 bg-white border-b fixed top-0 right-0 left-64 flex items-center justify-between px-8 z-10">
@@ -15,19 +13,6 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-6">
-        <div className="flex items-center gap-2">
-          <label className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Switch Role:</label>
-          <select 
-            value={user?.role} 
-            onChange={(e) => switchRole(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 outline-none cursor-pointer"
-          >
-            {roles.map((role) => (
-              <option key={role} value={role}>{role.charAt(0).toUpperCase() + role.slice(1)}</option>
-            ))}
-          </select>
-        </div>
-
         <div className="relative">
           <button 
             onClick={() => setIsOpen(!isOpen)}

@@ -6,8 +6,8 @@ import { User, PasswordResetToken, Asset, AssetCustodyHistory } from '../models/
 
 const router = express.Router();
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET || 'secret123', { 
+const generateToken = (id, role) => {
+  return jwt.sign({ id, role }, process.env.JWT_SECRET || 'secret123', { 
     expiresIn: process.env.JWT_EXPIRES_IN || '30d' 
   });
 };
@@ -59,7 +59,7 @@ router.post('/register', async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
-      token: generateToken(user.id),
+      token: generateToken(user.id, user.role),
     });
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -77,7 +77,7 @@ router.post('/login', async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
-        token: generateToken(user.id),
+        token: generateToken(user.id, user.role),
       });
     } else {
       res.status(401).json({ message: 'Invalid email or password' });
