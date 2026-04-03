@@ -1,0 +1,60 @@
+# ======================
+# 🔐 ENV FILES
+# ======================
+.env
+.env.*
+server/.env
+client/.env
+
+# ======================
+# 📦 DEPENDENCIES
+# ======================
+node_modules/
+client/node_modules
+server/node_modules
+
+**/node_modules/
+
+# ======================
+# 📁 BUILD FILES
+# ======================
+dist/
+build/
+**/dist/
+**/build/
+
+# ======================
+# 🧾 LOG FILES
+# ======================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ======================
+# 🖥️ OS FILES
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# 🧠 EDITOR FILES
+# ======================
+.vscode/
+.idea/
+
+# ======================
+# ⚡ CACHE FILES
+# ======================
+.cache/
+.next/
+coverage/
+
+# ======================
+# 🔒 OPTIONAL (recommended)
+# ======================
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
