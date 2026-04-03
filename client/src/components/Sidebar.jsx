@@ -56,7 +56,7 @@ const Sidebar = () => {
       <div className="p-6">
         <h1 className="text-xl font-bold text-blue-600 flex items-center gap-2">
           <Briefcase className="w-6 h-6" />
-          WorkManage
+          WorkSphere
         </h1>
       </div>
       <nav className="mt-6">
