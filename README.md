@@ -136,16 +136,6 @@ cd client
 npm run dev
 ```
 The app will be available at `http://localhost:5173`.
-
-
----
-
-## 📸 Screenshots
-*(Add your screenshots here)*
-| Dashboard | Task Management | Facility Booking |
-| :---: | :---: | :---: |
-| ![Dash]() | ![Tasks]() | ![Booking]() |
-
 ---
 ## 🔮 Future Improvements
 - [ ] Mobile application using React Native.
