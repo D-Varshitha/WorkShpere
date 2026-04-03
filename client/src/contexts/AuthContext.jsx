@@ -1,4 +1,11 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+import api from '../api/axios';
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
 
 const AuthContext = createContext();
 
@@ -29,10 +36,34 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  const login = ({ token, ...userFromApi }) => {
+    setUser(userFromApi);
+    localStorage.setItem('user', JSON.stringify(userFromApi));
+    if (token) localStorage.setItem('token', token);
+  };
+
+  const refreshUser = async () => {
+    try {
+      const res = await api.get('/me');
+      setUser(res.data);
+      localStorage.setItem('user', JSON.stringify(res.data));
+    } catch (e) {
+      // If the session is invalid, the axios interceptor will handle redirect.
+      console.error('Failed to refresh user', e);
+    }
+=======
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
   const login = (userData) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
     localStorage.setItem('token', userData.token);
+<<<<<<< HEAD
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
   };
 
   const logout = () => {
@@ -42,7 +73,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
+<<<<<<< HEAD
     <AuthContext.Provider value={{ user, login, logout, loading }}>
+=======
+<<<<<<< HEAD
+    <AuthContext.Provider value={{ user, login, logout, refreshUser, loading }}>
+=======
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
       {!loading && children}
     </AuthContext.Provider>
   );

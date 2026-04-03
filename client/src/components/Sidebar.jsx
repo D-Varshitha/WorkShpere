@@ -19,11 +19,24 @@ const Sidebar = () => {
       { name: 'Projects', icon: Briefcase, path: '/admin/projects' },
       { name: 'Attendance', icon: ClipboardList, path: '/admin/attendance' },
       { name: 'Leave Requests', icon: Calendar, path: '/admin/leaves' },
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      { name: 'Feedback', icon: MessageSquare, path: '/admin/feedback' },
+      { name: 'Assets & Maintenance', icon: Building2, path: '/admin/assets' },
+      { name: 'Overwork Risks', icon: Users, path: '/admin/overwork-risks' },
+      { name: 'Seating', icon: Building2, path: '/seating' }
+=======
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
       { name: 'Facilities', icon: Building2, path: '/admin/facilities' },
       { name: 'Feedback', icon: MessageSquare, path: '/admin/feedback' },
       { name: 'Assets & Maintenance', icon: Building2, path: '/admin/assets' },
       { name: 'Overwork Risks', icon: Users, path: '/admin/overwork-risks' },
       { name: 'Seating', icon: Building2, path: '/admin/seating' }
+<<<<<<< HEAD
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
     ],
     manager: [
       { name: 'Dashboard', icon: LayoutDashboard, path: '/manager' },
@@ -34,7 +47,15 @@ const Sidebar = () => {
       { name: 'Attendance', icon: ClipboardList, path: '/manager/attendance' },
       { name: 'Wellness', icon: Heart, path: '/manager/wellness' },
       { name: 'Announcements', icon: Megaphone, path: '/manager/announcements' },
+<<<<<<< HEAD
       { name: 'Seating', icon: Building2, path: '/manager/seating' }
+=======
+<<<<<<< HEAD
+      { name: 'Seating', icon: Building2, path: '/seating' }
+=======
+      { name: 'Seating', icon: Building2, path: '/manager/seating' }
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
     ],
     employee: [
       { name: 'Dashboard', icon: LayoutDashboard, path: '/employee' },
@@ -46,7 +67,15 @@ const Sidebar = () => {
       { name: 'Feedback', icon: MessageSquare, path: '/employee/feedback' },
       { name: 'My Assets', icon: Building2, path: '/employee/assets' },
       { name: 'Wellness', icon: Heart, path: '/employee/wellness' },
+<<<<<<< HEAD
       { name: 'Seating', icon: Building2, path: '/employee/seating' }
+=======
+<<<<<<< HEAD
+      { name: 'Seating', icon: Building2, path: '/seating' }
+=======
+      { name: 'Seating', icon: Building2, path: '/employee/seating' }
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
     ]
   };
 

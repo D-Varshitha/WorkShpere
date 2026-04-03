@@ -6,10 +6,26 @@ const Navbar = () => {
   const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  const displayName = user?.name?.trim() || user?.email || 'User';
+
+  return (
+    <nav className="h-16 bg-white border-b fixed top-0 right-0 left-64 flex items-center justify-between px-8 z-10">
+      <div className="text-gray-600 font-medium">
+        Welcome back,{' '}
+        <span className="text-blue-600 font-bold">{displayName}</span>
+=======
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
   return (
     <nav className="h-16 bg-white border-b fixed top-0 right-0 left-64 flex items-center justify-between px-8 z-10">
       <div className="text-gray-600 font-medium">
         Welcome back, <span className="text-blue-600 font-bold capitalize">{user?.name}</span>
+<<<<<<< HEAD
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
       </div>
 
       <div className="flex items-center gap-6">

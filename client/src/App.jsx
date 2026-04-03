@@ -58,6 +58,11 @@ const RoleBasedRoute = () => {
   }
 };
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
 const AccessDenied = () => (
   <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
     <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
@@ -73,12 +78,24 @@ const AccessDenied = () => (
   </div>
 );
 
+<<<<<<< HEAD
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
 const RequireRole = ({ roles, children }) => {
   const { user, loading } = useAuth();
 
   if (loading) return null;
   if (!user) return <Navigate to="/login" replace />;
+<<<<<<< HEAD
   if (!roles.includes(user.role)) return <Navigate to="/access-denied" replace />;
+=======
+<<<<<<< HEAD
+  if (!roles.includes(user.role)) return <Navigate to="/" replace />;
+=======
+  if (!roles.includes(user.role)) return <Navigate to="/access-denied" replace />;
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
 
   return children;
 };
@@ -90,11 +107,24 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+          
+          <Route element={<DashboardLayout />}>
+            <Route path="/" element={<RoleBasedRoute />} />
+            
+=======
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
           <Route path="/access-denied" element={<AccessDenied />} />
 
           <Route element={<DashboardLayout />}>
             <Route path="/" element={<RoleBasedRoute />} />
 ...
+<<<<<<< HEAD
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
             {/* Admin Routes */}
             <Route path="/admin" element={<RequireRole roles={['admin']}><AdminDashboard /></RequireRole>} />
             <Route path="/admin/employees" element={<RequireRole roles={['admin']}><AdminEmployees /></RequireRole>} />
@@ -102,21 +132,46 @@ const App = () => {
             <Route path="/admin/attendance" element={<RequireRole roles={['admin']}><AdminAttendance /></RequireRole>} />
             <Route path="/admin/feedback" element={<RequireRole roles={['admin']}><AdminFeedback /></RequireRole>} />
             <Route path="/admin/leaves" element={<RequireRole roles={['admin']}><Leaves /></RequireRole>} />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+            <Route path="/admin/assets" element={<RequireRole roles={['admin']}><AdminAssetMaintenance /></RequireRole>} />
+            <Route path="/admin/overwork-risks" element={<RequireRole roles={['admin']}><AdminOverworkRisks /></RequireRole>} />
+=======
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
             <Route path="/admin/facilities" element={<RequireRole roles={['admin']}><Facilities /></RequireRole>} />
             <Route path="/admin/assets" element={<RequireRole roles={['admin']}><AdminAssetMaintenance /></RequireRole>} />
             <Route path="/admin/overwork-risks" element={<RequireRole roles={['admin']}><AdminOverworkRisks /></RequireRole>} />
             <Route path="/admin/seating" element={<RequireRole roles={['admin']}><Seating /></RequireRole>} />
+<<<<<<< HEAD
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
             
             {/* Manager Routes */}
             <Route path="/manager" element={<RequireRole roles={['manager']}><ManagerDashboard /></RequireRole>} />
             <Route path="/manager/team" element={<RequireRole roles={['manager']}><ManagerTeams /></RequireRole>} />
             <Route path="/manager/projects" element={<RequireRole roles={['manager']}><ManagerProjects /></RequireRole>} />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+            <Route path="/manager/leaves" element={<RequireRole roles={['manager', 'admin']}><Leaves /></RequireRole>} />
+            <Route path="/manager/facilities" element={<RequireRole roles={['manager', 'admin']}><Facilities /></RequireRole>} />
+            <Route path="/manager/attendance" element={<RequireRole roles={['manager']}><ManagerAttendance /></RequireRole>} />
+            <Route path="/manager/wellness" element={<RequireRole roles={['manager']}><ManagerWellness /></RequireRole>} />
+            <Route path="/manager/announcements" element={<RequireRole roles={['manager']}><ManagerAnnouncements /></RequireRole>} />
+=======
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
             <Route path="/manager/leaves" element={<RequireRole roles={['manager']}><Leaves /></RequireRole>} />
             <Route path="/manager/facilities" element={<RequireRole roles={['manager']}><Facilities /></RequireRole>} />
             <Route path="/manager/attendance" element={<RequireRole roles={['manager']}><ManagerAttendance /></RequireRole>} />
             <Route path="/manager/wellness" element={<RequireRole roles={['manager']}><ManagerWellness /></RequireRole>} />
             <Route path="/manager/announcements" element={<RequireRole roles={['manager']}><ManagerAnnouncements /></RequireRole>} />
             <Route path="/manager/seating" element={<RequireRole roles={['manager']}><Seating /></RequireRole>} />
+<<<<<<< HEAD
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
             
             {/* Employee Routes */}
             <Route path="/employee" element={<RequireRole roles={['employee']}><EmployeeDashboard /></RequireRole>} />
@@ -128,10 +183,27 @@ const App = () => {
             <Route path="/employee/facilities" element={<RequireRole roles={['employee']}><Facilities /></RequireRole>} />
             <Route path="/employee/assets" element={<RequireRole roles={['employee']}><EmployeeAssets /></RequireRole>} />
             <Route path="/employee/wellness" element={<RequireRole roles={['employee']}><EmployeeWellness /></RequireRole>} />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+            
+            {/* Shared */}
+            <Route path="/leaves" element={<RequireRole roles={['employee', 'manager', 'admin']}><Leaves /></RequireRole>} />
+            <Route path="/facilities" element={<RequireRole roles={['employee', 'manager', 'admin']}><Facilities /></RequireRole>} />
+            <Route path="/seating" element={<RequireRole roles={['employee', 'manager', 'admin']}><Seating /></RequireRole>} />
+
+            {/* Notifications: visible to all roles */}
+            <Route path="/notifications" element={<Notifications />} />
+=======
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
             <Route path="/employee/seating" element={<RequireRole roles={['employee']}><Seating /></RequireRole>} />
             
             {/* Notifications: visible to all roles but protected */}
             <Route path="/notifications" element={<RequireRole roles={['employee', 'manager', 'admin']}><Notifications /></RequireRole>} />
+<<<<<<< HEAD
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
           </Route>
 
           <Route path="*" element={<Navigate to="/" />} />

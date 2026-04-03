@@ -7,15 +7,36 @@ const AdminEmployees = () => {
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  const managers = employees.filter((e) => e.role === 'manager' && !e.archived);
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
   const [newEmp, setNewEmp] = useState({ 
     name: '', 
     email: '', 
     password: 'password123', // Default password for new employees
     role: 'employee', 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    department: '',
+    managerId: ''
+  });
+  const [editEmp, setEditEmp] = useState(null);
+  const [editForm, setEditForm] = useState({ role: 'employee', department: '', archived: false, managerId: '' });
+=======
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
     department: '' 
   });
   const [editEmp, setEditEmp] = useState(null);
   const [editForm, setEditForm] = useState({ role: 'employee', department: '', archived: false });
+<<<<<<< HEAD
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
 
   useEffect(() => {
     fetchEmployees();
@@ -37,10 +58,27 @@ const AdminEmployees = () => {
     e.preventDefault();
     try {
       // We use the /auth/register route to create new users in the database
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      const payload = {
+        ...newEmp,
+        managerId: newEmp.role === 'employee' ? (newEmp.managerId || null) : null
+      };
+      await api.post('/auth/register', payload);
+      alert('Employee added successfully! Default password is: password123');
+      setShowAddModal(false);
+      setNewEmp({ name: '', email: '', password: 'password123', role: 'employee', department: '', managerId: '' });
+=======
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
       await api.post('/auth/register', newEmp);
       alert('Employee added successfully! Default password is: password123');
       setShowAddModal(false);
       setNewEmp({ name: '', email: '', password: 'password123', role: 'employee', department: '' });
+<<<<<<< HEAD
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
       fetchEmployees();
     } catch (error) {
       alert(error.response?.data?.message || 'Failed to add employee');
@@ -63,7 +101,16 @@ const AdminEmployees = () => {
     setEditForm({
       role: emp.role || 'employee',
       department: emp.department || '',
+<<<<<<< HEAD
       archived: Boolean(emp.archived)
+=======
+<<<<<<< HEAD
+      archived: Boolean(emp.archived),
+      managerId: emp.managerId || ''
+=======
+      archived: Boolean(emp.archived)
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
     });
     setShowEditModal(true);
   };
@@ -75,7 +122,16 @@ const AdminEmployees = () => {
       await api.patch(`/users/${editEmp.id}`, {
         role: editForm.role,
         department: editForm.department,
+<<<<<<< HEAD
         archived: editForm.archived
+=======
+<<<<<<< HEAD
+        archived: editForm.archived,
+        managerId: editForm.managerId || null
+=======
+        archived: editForm.archived
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
       });
       setShowEditModal(false);
       setEditEmp(null);
@@ -196,6 +252,28 @@ const AdminEmployees = () => {
                   </select>
                 </div>
                 <div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Manager</label>
+                  <select
+                    disabled={newEmp.role !== 'employee' || managers.length === 0}
+                    className="w-full p-3 bg-gray-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+                    value={newEmp.managerId}
+                    onChange={(e) => setNewEmp({ ...newEmp, managerId: e.target.value })}
+                  >
+                    <option value="">Unassigned</option>
+                    {managers.map((m) => (
+                      <option key={m.id} value={m.id}>
+                        {m.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
                   <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
                   <input 
                     type="text" required
@@ -254,6 +332,29 @@ const AdminEmployees = () => {
                 />
               </div>
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Manager</label>
+                <select
+                  disabled={editForm.role !== 'employee' || managers.length === 0}
+                  className="w-full p-3 bg-gray-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+                  value={editForm.managerId}
+                  onChange={(e) => setEditForm({ ...editForm, managerId: e.target.value })}
+                >
+                  <option value="">Unassigned</option>
+                  {managers.map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {m.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
               <div className="flex items-center gap-3">
                 <input
                   id="edit-archived"

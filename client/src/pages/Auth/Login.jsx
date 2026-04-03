@@ -16,6 +16,14 @@ const Login = () => {
     setError('');
     try {
       const response = await api.post('/auth/login', { email, password });
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      const { user: userFromApi, token } = response.data;
+      login({ ...userFromApi, token });
+      navigate('/');
+=======
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
       const userData = response.data;
       login(userData);
       
@@ -29,6 +37,10 @@ const Login = () => {
       } else {
         navigate('/');
       }
+<<<<<<< HEAD
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     }
@@ -41,7 +53,11 @@ const Login = () => {
           <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <LogIn className="w-8 h-8 text-blue-600" />
           </div>
+<<<<<<< HEAD
           <h2 className="text-3xl font-extrabold text-gray-900">Sign in to WorkSphere</h2>
+=======
+          <h2 className="text-3xl font-extrabold text-gray-900">Sign in to WorkManage</h2>
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
           <p className="mt-2 text-sm text-gray-600">Use admin@example.com / password</p>
         </div>
 

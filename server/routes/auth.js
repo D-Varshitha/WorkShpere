@@ -6,8 +6,18 @@ import { User, PasswordResetToken, Asset, AssetCustodyHistory } from '../models/
 
 const router = express.Router();
 
+<<<<<<< HEAD
 const generateToken = (id, role) => {
   return jwt.sign({ id, role }, process.env.JWT_SECRET || 'secret123', { 
+=======
+<<<<<<< HEAD
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET || 'secret123', { 
+=======
+const generateToken = (id, role) => {
+  return jwt.sign({ id, role }, process.env.JWT_SECRET || 'secret123', { 
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
     expiresIn: process.env.JWT_EXPIRES_IN || '30d' 
   });
 };
@@ -59,7 +69,15 @@ router.post('/register', async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
+<<<<<<< HEAD
       token: generateToken(user.id, user.role),
+=======
+<<<<<<< HEAD
+      token: generateToken(user.id),
+=======
+      token: generateToken(user.id, user.role),
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
     });
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -73,11 +91,31 @@ router.post('/login', async (req, res) => {
 
     if (user && (await bcrypt.compare(password, user.password))) {
       res.json({
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          department: user.department,
+          managerId: user.managerId,
+          totalLeaves: user.totalLeaves,
+          usedLeaves: user.usedLeaves,
+        },
+        token: generateToken(user.id),
+=======
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
         id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
         token: generateToken(user.id, user.role),
+<<<<<<< HEAD
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
+>>>>>>> 21677e05bfc8391e9ca927915da1f08a8133f6a1
       });
     } else {
       res.status(401).json({ message: 'Invalid email or password' });
