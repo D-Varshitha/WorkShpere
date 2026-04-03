@@ -28,7 +28,11 @@ const ManagerDashboard = () => {
           </div>
         ))}
       </div>
+<<<<<<< HEAD
       </div>
+=======
+            </div>
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
   );
 };
 

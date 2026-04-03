@@ -16,9 +16,25 @@ const Login = () => {
     setError('');
     try {
       const response = await api.post('/auth/login', { email, password });
+<<<<<<< HEAD
       const { user: userFromApi, token } = response.data;
       login({ ...userFromApi, token });
       navigate('/');
+=======
+      const userData = response.data;
+      login(userData);
+      
+      // Strict role-based redirect
+      if (userData.role === 'admin') {
+        navigate('/admin');
+      } else if (userData.role === 'manager') {
+        navigate('/manager');
+      } else if (userData.role === 'employee') {
+        navigate('/employee');
+      } else {
+        navigate('/');
+      }
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     }

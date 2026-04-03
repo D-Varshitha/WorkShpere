@@ -4,7 +4,11 @@ import { useAuth } from '../../contexts/AuthContext';
 import api from '../../api/axios';
 
 const Leaves = () => {
+<<<<<<< HEAD
   const { user, refreshUser } = useAuth();
+=======
+  const { user } = useAuth();
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
   const [myLeaves, setMyLeaves] = useState([]);
   const [pendingApprovals, setPendingApprovals] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -64,10 +68,16 @@ const Leaves = () => {
       alert(`Request ${status} successfully!`);
       setShowRejectionModal(false);
       setRejectionComment('');
+<<<<<<< HEAD
       await refreshUser?.();
       fetchLeaves();
     } catch (error) {
       alert(error.response?.data?.message || 'Failed to update status');
+=======
+      fetchLeaves();
+    } catch (error) {
+      alert('Failed to update status');
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     }
   };
 
@@ -101,6 +111,16 @@ const Leaves = () => {
           </h1>
           <p className="text-gray-500">Track and manage leave applications.</p>
         </div>
+<<<<<<< HEAD
+=======
+        {user.role !== 'admin' && (
+          <div className="bg-blue-50 px-4 py-2 rounded-lg border border-blue-100">
+            <span className="text-sm font-medium text-blue-700">
+              Remaining Leaves: <span className="font-bold">{(user.totalLeaves || 24) - (user.usedLeaves || 0)}</span>
+            </span>
+          </div>
+        )}
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -158,7 +178,10 @@ const Leaves = () => {
               ) : (
                 myLeaves.map((req) => {
                   const isSelf = String(req.employeeId) === String(user.id);
+<<<<<<< HEAD
                   const employeeName = req.user?.name || req.Employee?.name || 'Leave';
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
                   return (
                     <div key={req.id} className="bg-white p-6 rounded-2xl border flex items-center justify-between shadow-sm hover:shadow-md transition border-l-4 border-l-blue-600">
                       <div className="flex items-center gap-6">
@@ -168,7 +191,11 @@ const Leaves = () => {
                         <div>
                           <div className="flex items-center gap-3">
                             <span className="font-bold text-gray-900 text-lg">
+<<<<<<< HEAD
                               {employeeName} Request
+=======
+                              {isSelf ? 'Personal Request' : (req.Employee?.name || 'Leave Request')}
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
                             </span>
                             {req.status === 'pending' && (
                               <span className="flex items-center gap-1 text-[10px] bg-orange-100 text-orange-700 px-2 py-0.5 rounded font-black uppercase">
@@ -250,7 +277,11 @@ const Leaves = () => {
                     <div>
                       <div className="flex items-center gap-3">
                         <span className="font-bold text-gray-900 text-lg">
+<<<<<<< HEAD
                           {req.user?.name || req.Employee?.name || 'Leave'} Request
+=======
+                          {req.Employee?.name || 'Leave Request'}
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
                         </span>
                         {req.status === 'pending' && (
                           <span className="flex items-center gap-1 text-[10px] bg-orange-100 text-orange-700 px-2 py-0.5 rounded font-black uppercase">
@@ -312,9 +343,13 @@ const Leaves = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl w-full max-w-md p-8 shadow-2xl">
             <h2 className="text-xl font-bold mb-4 text-gray-900">Reject Leave Request</h2>
+<<<<<<< HEAD
             <p className="text-sm text-gray-500 mb-6">
               Please provide a reason for rejecting the leave request from <strong>{selectedRequest?.user?.name || selectedRequest?.Employee?.name}</strong>.
             </p>
+=======
+            <p className="text-sm text-gray-500 mb-6">Please provide a reason for rejecting the leave request from <strong>{selectedRequest?.Employee?.name}</strong>.</p>
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
             
             <div className="space-y-4">
               <div>

@@ -10,11 +10,18 @@ client/.env
 # 📦 DEPENDENCIES
 # ======================
 node_modules/
+<<<<<<< HEAD
 client/node_modules
 server/node_modules
 
 **/node_modules/
 
+=======
+server/node_modules
+client/node_modules
+**/node_modules/
+Work_Space_Management
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
 # ======================
 # 📁 BUILD FILES
 # ======================

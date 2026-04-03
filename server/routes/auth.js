@@ -6,8 +6,13 @@ import { User, PasswordResetToken, Asset, AssetCustodyHistory } from '../models/
 
 const router = express.Router();
 
+<<<<<<< HEAD
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || 'secret123', { 
+=======
+const generateToken = (id, role) => {
+  return jwt.sign({ id, role }, process.env.JWT_SECRET || 'secret123', { 
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     expiresIn: process.env.JWT_EXPIRES_IN || '30d' 
   });
 };
@@ -59,7 +64,11 @@ router.post('/register', async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
+<<<<<<< HEAD
       token: generateToken(user.id),
+=======
+      token: generateToken(user.id, user.role),
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     });
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -73,6 +82,7 @@ router.post('/login', async (req, res) => {
 
     if (user && (await bcrypt.compare(password, user.password))) {
       res.json({
+<<<<<<< HEAD
         user: {
           id: user.id,
           name: user.name,
@@ -84,6 +94,13 @@ router.post('/login', async (req, res) => {
           usedLeaves: user.usedLeaves,
         },
         token: generateToken(user.id),
+=======
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        token: generateToken(user.id, user.role),
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
       });
     } else {
       res.status(401).json({ message: 'Invalid email or password' });

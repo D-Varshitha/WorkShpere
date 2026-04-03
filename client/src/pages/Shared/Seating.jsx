@@ -17,9 +17,12 @@ const Seating = () => {
   const [loading, setLoading] = useState(true);
   const [seats, setSeats] = useState([]);
   const [assigning, setAssigning] = useState(false);
+<<<<<<< HEAD
   const [assigningSeat, setAssigningSeat] = useState(null);
   const [employees, setEmployees] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState('');
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
 
   const cubicles = useMemo(() => buildDefaultCubicles(), []);
   const isAdminOrManager = user?.role === 'admin' || user?.role === 'manager';
@@ -36,6 +39,7 @@ const Seating = () => {
     }
   };
 
+<<<<<<< HEAD
   const fetchEmployees = async () => {
     if (!isAdminOrManager) return;
     try {
@@ -51,6 +55,11 @@ const Seating = () => {
     fetchEmployees();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAdminOrManager]);
+=======
+  useEffect(() => {
+    fetchSeating();
+  }, []);
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
 
   const seatByCubicle = useMemo(() => {
     const m = new Map();
@@ -58,6 +67,7 @@ const Seating = () => {
     return m;
   }, [seats]);
 
+<<<<<<< HEAD
   const openAssign = (cubicleId) => {
     if (!isAdminOrManager) return;
     setAssigningSeat(cubicleId);
@@ -72,6 +82,15 @@ const Seating = () => {
       await fetchSeating();
       setAssigningSeat(null);
       setSelectedUserId('');
+=======
+  const assign = async (cubicleId) => {
+    if (!isAdminOrManager) return;
+    const userId = prompt('Enter employee userId to assign (leave empty to free):', '');
+    setAssigning(true);
+    try {
+      await api.patch(`/seating/${cubicleId}`, { userId: userId?.trim() || null });
+      await fetchSeating();
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     } catch (err) {
       alert(err.response?.data?.message || 'Failed to update seating');
     } finally {
@@ -109,7 +128,11 @@ const Seating = () => {
                 <button
                   key={id}
                   disabled={!isAdminOrManager || assigning}
+<<<<<<< HEAD
                   onClick={() => openAssign(id)}
+=======
+                  onClick={() => assign(id)}
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
                   className={`p-4 rounded-xl border text-left transition ${
                     occupied ? 'bg-red-50 border-red-100 hover:bg-red-100' : 'bg-green-50 border-green-100 hover:bg-green-100'
                   } ${!isAdminOrManager ? 'cursor-default' : ''}`}
@@ -137,6 +160,7 @@ const Seating = () => {
           </div>
         </div>
       )}
+<<<<<<< HEAD
 
       {isAdminOrManager && assigningSeat && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
@@ -182,6 +206,8 @@ const Seating = () => {
           </div>
         </div>
       )}
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     </div>
   );
 };

@@ -39,11 +39,14 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', authRoutes);
 
+<<<<<<< HEAD
 // Current authenticated user snapshot (used by UI to refresh counters)
 app.get('/api/me', protect, async (req, res) => {
   res.json(req.user);
 });
 
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
 // USERS
 app.get('/api/users', protect, authorizeRoles('admin', 'manager'), async (req, res) => {
   try {
@@ -68,23 +71,36 @@ app.delete('/api/users/:id', protect, authorizeRoles('admin'), async (req, res) 
 // FR1.1/FR1.3: Archive/unarchive + update role/department with history log
 app.patch('/api/users/:id', protect, authorizeRoles('admin'), async (req, res) => {
   try {
+<<<<<<< HEAD
     const { role, department, archived, managerId } = req.body || {};
+=======
+    const { role, department, archived } = req.body || {};
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     const userToUpdate = await User.findByPk(req.params.id);
     if (!userToUpdate) return res.status(404).json({ message: 'User not found' });
 
     const oldRole = userToUpdate.role;
     const oldDepartment = userToUpdate.department;
     const oldArchived = userToUpdate.archived;
+<<<<<<< HEAD
     const oldManagerId = userToUpdate.managerId;
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
 
     const nextRole = role ?? userToUpdate.role;
     const nextDept = department ?? userToUpdate.department;
     const nextArchived = archived ?? userToUpdate.archived;
+<<<<<<< HEAD
     const nextManagerId = managerId ?? userToUpdate.managerId;
 
     userToUpdate.role = nextRole;
     userToUpdate.department = nextDept;
     userToUpdate.managerId = nextManagerId;
+=======
+
+    userToUpdate.role = nextRole;
+    userToUpdate.department = nextDept;
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     userToUpdate.archived = Boolean(nextArchived);
     userToUpdate.archivedAt = userToUpdate.archived ? new Date() : null;
 
@@ -141,6 +157,7 @@ app.get('/api/projects', protect, async (req, res) => {
     } else if (req.user.role === 'manager') {
       projects = await Project.findAll({ where: { managerId: req.user.id }, include });
     } else {
+<<<<<<< HEAD
       // Employee: only return projects where they are present in ProjectMembers.
       // (Using explicit ProjectMember join is more reliable than `$TeamMembers.id$` filtering.)
       const memberships = await ProjectMember.findAll({
@@ -155,6 +172,16 @@ app.get('/api/projects', protect, async (req, res) => {
       projects = await Project.findAll({
         where: { id: { [Op.in]: projectIds } },
         include
+=======
+      projects = await Project.findAll({
+        include,
+        where: {
+          [Op.or]: [
+            { managerId: req.user.id },
+            { '$TeamMembers.id$': req.user.id }
+          ]
+        }
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
       });
     }
     res.json(projects);
@@ -465,6 +492,7 @@ app.get('/api/leave/my', protect, async (req, res) => {
     const level =
       req.user.role === 'admin' ? 'hr' : req.user.role === 'manager' ? 'manager' : null;
 
+<<<<<<< HEAD
     const include = [
       { model: User, as: 'Employee', attributes: ['id', 'name', 'email'] }
     ];
@@ -492,6 +520,23 @@ app.get('/api/leave/my', protect, async (req, res) => {
     });
 
     res.json(payload);
+=======
+    const leaves = await Leave.findAll({
+      where: { employeeId: req.user.id },
+      include:
+        level
+          ? [
+              {
+                model: LeaveApproval,
+                required: false,
+                where: { level, status: 'pending' }
+              }
+            ]
+          : [],
+      order: [['createdAt', 'DESC']]
+    });
+    res.json(leaves);
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -500,6 +545,7 @@ app.get('/api/leave/my', protect, async (req, res) => {
 app.get('/api/leave/pending', protect, authorizeRoles('admin', 'manager'), async (req, res) => {
   try {
     const level = req.user.role === 'admin' ? 'hr' : 'manager';
+<<<<<<< HEAD
 
     let employeeIds = null;
     if (req.user.role === 'manager') {
@@ -515,11 +561,19 @@ app.get('/api/leave/pending', protect, authorizeRoles('admin', 'manager'), async
       status: 'pending',
       ...(req.user.role === 'manager' ? { employeeId: { [Op.in]: employeeIds } } : {})
     };
+=======
+    const whereClause = { status: 'pending' };
+    if (req.user.role === 'manager') whereClause.managerId = req.user.id;
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
 
     const leaves = await Leave.findAll({
       where: whereClause,
       include: [
+<<<<<<< HEAD
         { model: User, as: 'Employee', attributes: ['id', 'name', 'email'], required: true },
+=======
+        { model: User, as: 'Employee', attributes: ['id', 'name'] },
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
         {
           model: LeaveApproval,
           required: true,
@@ -528,6 +582,7 @@ app.get('/api/leave/pending', protect, authorizeRoles('admin', 'manager'), async
       ],
       order: [['createdAt', 'DESC']]
     });
+<<<<<<< HEAD
 
     const payload = leaves.map((l) => {
       const json = l.toJSON();
@@ -537,6 +592,9 @@ app.get('/api/leave/pending', protect, authorizeRoles('admin', 'manager'), async
     });
 
     res.json(payload);
+=======
+    res.json(leaves);
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -556,6 +614,7 @@ app.put('/api/leave/:id', protect, authorizeRoles('admin', 'manager'), async (re
     const isManager = req.user.role === 'manager';
     const level = isManager ? 'manager' : 'hr';
 
+<<<<<<< HEAD
     if (isManager) {
       // Authorize using the employee's current managerId (Leave.managerId may be stale/null).
       const employee = await User.findByPk(leave.employeeId, {
@@ -564,6 +623,10 @@ app.put('/api/leave/:id', protect, authorizeRoles('admin', 'manager'), async (re
       if (!employee || String(employee.managerId) !== String(req.user.id)) {
         return res.status(403).json({ message: 'Not allowed to approve this leave request' });
       }
+=======
+    if (isManager && String(leave.managerId) !== String(req.user.id)) {
+      return res.status(403).json({ message: 'Not allowed to approve this leave request' });
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     }
 
     let approval = await LeaveApproval.findOne({ where: { leaveId: leave.id, level } });
@@ -575,6 +638,7 @@ app.put('/api/leave/:id', protect, authorizeRoles('admin', 'manager'), async (re
       return res.status(400).json({ message: 'status must be approved or rejected' });
     }
 
+<<<<<<< HEAD
     // Deduct leave balance only when the leave transitions to fully approved.
     // We simulate the "next" leave status based on all LeaveApprovals for this leave.
     const previousLeaveStatus = leave.status;
@@ -617,6 +681,8 @@ app.put('/api/leave/:id', protect, authorizeRoles('admin', 'manager'), async (re
       }
     }
 
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     approval.status = desiredStatus;
     approval.decidedBy = req.user.id;
     approval.decidedAt = now;
@@ -639,6 +705,7 @@ app.put('/api/leave/:id', protect, authorizeRoles('admin', 'manager'), async (re
 
     await leave.save();
 
+<<<<<<< HEAD
     if (daysToDeduct !== null && leave.status === 'approved') {
       const employee = await User.findByPk(leave.employeeId, {
         attributes: ['id', 'totalLeaves', 'usedLeaves']
@@ -650,6 +717,8 @@ app.put('/api/leave/:id', protect, authorizeRoles('admin', 'manager'), async (re
       }
     }
 
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     res.json(leave);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -693,6 +762,7 @@ app.post('/api/leaves', protect, async (req, res) => {
 // GET /api/leaves
 app.get('/api/leaves', protect, async (req, res) => {
   try {
+<<<<<<< HEAD
     let employeeIds = null;
     if (req.user.role === 'manager') {
       const employees = await User.findAll({
@@ -703,15 +773,22 @@ app.get('/api/leaves', protect, async (req, res) => {
       if (employeeIds.length === 0) return res.json([]);
     }
 
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     const whereClause =
       req.user.role === 'admin'
         ? {}
         : req.user.role === 'manager'
+<<<<<<< HEAD
           ? { employeeId: { [Op.in]: employeeIds } }
+=======
+          ? { managerId: req.user.id }
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
           : { employeeId: req.user.id };
 
     const leaves = await Leave.findAll({
       where: whereClause,
+<<<<<<< HEAD
       include: [{ model: User, as: 'Employee', attributes: ['id', 'name', 'email'] }],
       order: [['createdAt', 'DESC']]
     });
@@ -724,6 +801,13 @@ app.get('/api/leaves', protect, async (req, res) => {
     });
 
     res.json(payload);
+=======
+      include: req.user.role === 'employee' ? [] : [{ model: User, as: 'Employee', attributes: ['id', 'name'] }],
+      order: [['createdAt', 'DESC']]
+    });
+
+    res.json(leaves);
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -744,6 +828,7 @@ app.patch('/api/leaves/:id', protect, authorizeRoles('admin', 'manager'), async 
     const isManager = req.user.role === 'manager';
     const level = isManager ? 'manager' : 'hr';
 
+<<<<<<< HEAD
     if (isManager) {
       // Authorize using the employee's current managerId (Leave.managerId may be stale/null).
       const employee = await User.findByPk(leave.employeeId, {
@@ -752,6 +837,10 @@ app.patch('/api/leaves/:id', protect, authorizeRoles('admin', 'manager'), async 
       if (!employee || String(employee.managerId) !== String(req.user.id)) {
         return res.status(403).json({ message: 'Not allowed to approve this leave request' });
       }
+=======
+    if (isManager && String(leave.managerId) !== String(req.user.id)) {
+      return res.status(403).json({ message: 'Not allowed to approve this leave request' });
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     }
 
     let approval = await LeaveApproval.findOne({ where: { leaveId: leave.id, level } });
@@ -763,6 +852,7 @@ app.patch('/api/leaves/:id', protect, authorizeRoles('admin', 'manager'), async 
       return res.status(400).json({ message: 'status must be approved or rejected' });
     }
 
+<<<<<<< HEAD
     // Deduct leave balance only when the leave transitions to fully approved.
     const previousLeaveStatus = leave.status;
     let daysToDeduct = null;
@@ -804,6 +894,8 @@ app.patch('/api/leaves/:id', protect, authorizeRoles('admin', 'manager'), async 
       }
     }
 
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     approval.status = desiredStatus;
     approval.decidedBy = req.user.id;
     approval.decidedAt = now;
@@ -824,6 +916,7 @@ app.patch('/api/leaves/:id', protect, authorizeRoles('admin', 'manager'), async 
     }
     await leave.save();
 
+<<<<<<< HEAD
     if (daysToDeduct !== null && leave.status === 'approved') {
       const employee = await User.findByPk(leave.employeeId, {
         attributes: ['id', 'totalLeaves', 'usedLeaves']
@@ -835,6 +928,8 @@ app.patch('/api/leaves/:id', protect, authorizeRoles('admin', 'manager'), async 
       }
     }
 
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     res.json(leave);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -867,6 +962,7 @@ function parseHHMMToMinutes(t) {
   return hh * 60 + mm;
 }
 
+<<<<<<< HEAD
 function calcInclusiveLeaveDays(startDate, endDate) {
   // Inclusive: if start=end, days=1.
   const s = new Date(startDate);
@@ -879,6 +975,8 @@ function calcInclusiveLeaveDays(startDate, endDate) {
   return diffDays + 1;
 }
 
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
 function rangesOverlap(startA, endA, startB, endB) {
   // Overlap check for [start, end) time ranges.
   return startA < endB && endA > startB;
@@ -920,7 +1018,11 @@ async function assertNoFacilityDoubleBooking({ facilityName, dateOnly, fromTime,
 }
 
 // FACILITIES
+<<<<<<< HEAD
 app.post('/api/facilities', protect, authorizeRoles('employee', 'manager'), async (req, res) => {
+=======
+app.post('/api/facilities', protect, async (req, res) => {
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
   try {
     const {
       facilityId,
@@ -980,7 +1082,13 @@ app.post('/api/facilities', protect, authorizeRoles('employee', 'manager'), asyn
 
 app.get('/api/facilities', protect, async (req, res) => {
   try {
+<<<<<<< HEAD
     const facilities = await Facility.findAll({
+=======
+    const whereClause = req.user.role === 'employee' ? { employeeId: req.user.id } : {};
+    const facilities = await Facility.findAll({
+      where: whereClause,
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
       order: [['createdAt', 'DESC']]
     });
     res.json(facilities);
@@ -1005,7 +1113,11 @@ app.put('/api/facilities/:id', protect, authorizeRoles('admin', 'manager'), asyn
 
 // Facilities aliases (spec-friendly)
 // POST /api/facilities/book
+<<<<<<< HEAD
 app.post('/api/facilities/book', protect, authorizeRoles('employee', 'manager'), async (req, res) => {
+=======
+app.post('/api/facilities/book', protect, async (req, res) => {
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
   try {
     const {
       facilityId,

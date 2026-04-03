@@ -1,5 +1,8 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+<<<<<<< HEAD
 import api from '../api/axios';
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
 
 const AuthContext = createContext();
 
@@ -30,6 +33,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
+<<<<<<< HEAD
   const login = ({ token, ...userFromApi }) => {
     setUser(userFromApi);
     localStorage.setItem('user', JSON.stringify(userFromApi));
@@ -45,6 +49,12 @@ export const AuthProvider = ({ children }) => {
       // If the session is invalid, the axios interceptor will handle redirect.
       console.error('Failed to refresh user', e);
     }
+=======
+  const login = (userData) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('token', userData.token);
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
   };
 
   const logout = () => {
@@ -54,7 +64,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
+<<<<<<< HEAD
     <AuthContext.Provider value={{ user, login, logout, refreshUser, loading }}>
+=======
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
       {!loading && children}
     </AuthContext.Provider>
   );

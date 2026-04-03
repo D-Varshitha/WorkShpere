@@ -7,17 +7,27 @@ const AdminEmployees = () => {
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+<<<<<<< HEAD
   const managers = employees.filter((e) => e.role === 'manager' && !e.archived);
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
   const [newEmp, setNewEmp] = useState({ 
     name: '', 
     email: '', 
     password: 'password123', // Default password for new employees
     role: 'employee', 
+<<<<<<< HEAD
     department: '',
     managerId: ''
   });
   const [editEmp, setEditEmp] = useState(null);
   const [editForm, setEditForm] = useState({ role: 'employee', department: '', archived: false, managerId: '' });
+=======
+    department: '' 
+  });
+  const [editEmp, setEditEmp] = useState(null);
+  const [editForm, setEditForm] = useState({ role: 'employee', department: '', archived: false });
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
 
   useEffect(() => {
     fetchEmployees();
@@ -39,6 +49,7 @@ const AdminEmployees = () => {
     e.preventDefault();
     try {
       // We use the /auth/register route to create new users in the database
+<<<<<<< HEAD
       const payload = {
         ...newEmp,
         managerId: newEmp.role === 'employee' ? (newEmp.managerId || null) : null
@@ -47,6 +58,12 @@ const AdminEmployees = () => {
       alert('Employee added successfully! Default password is: password123');
       setShowAddModal(false);
       setNewEmp({ name: '', email: '', password: 'password123', role: 'employee', department: '', managerId: '' });
+=======
+      await api.post('/auth/register', newEmp);
+      alert('Employee added successfully! Default password is: password123');
+      setShowAddModal(false);
+      setNewEmp({ name: '', email: '', password: 'password123', role: 'employee', department: '' });
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
       fetchEmployees();
     } catch (error) {
       alert(error.response?.data?.message || 'Failed to add employee');
@@ -69,8 +86,12 @@ const AdminEmployees = () => {
     setEditForm({
       role: emp.role || 'employee',
       department: emp.department || '',
+<<<<<<< HEAD
       archived: Boolean(emp.archived),
       managerId: emp.managerId || ''
+=======
+      archived: Boolean(emp.archived)
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
     });
     setShowEditModal(true);
   };
@@ -82,8 +103,12 @@ const AdminEmployees = () => {
       await api.patch(`/users/${editEmp.id}`, {
         role: editForm.role,
         department: editForm.department,
+<<<<<<< HEAD
         archived: editForm.archived,
         managerId: editForm.managerId || null
+=======
+        archived: editForm.archived
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
       });
       setShowEditModal(false);
       setEditEmp(null);
@@ -204,6 +229,7 @@ const AdminEmployees = () => {
                   </select>
                 </div>
                 <div>
+<<<<<<< HEAD
                   <label className="block text-sm font-medium text-gray-700 mb-1">Manager</label>
                   <select
                     disabled={newEmp.role !== 'employee' || managers.length === 0}
@@ -220,6 +246,8 @@ const AdminEmployees = () => {
                   </select>
                 </div>
                 <div>
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
                   <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
                   <input 
                     type="text" required
@@ -278,6 +306,7 @@ const AdminEmployees = () => {
                 />
               </div>
 
+<<<<<<< HEAD
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Manager</label>
                 <select
@@ -295,6 +324,8 @@ const AdminEmployees = () => {
                 </select>
               </div>
 
+=======
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
               <div className="flex items-center gap-3">
                 <input
                   id="edit-archived"

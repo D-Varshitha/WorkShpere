@@ -34,6 +34,10 @@ const EmployeeDashboard = () => {
     { label: 'Assigned Tasks', value: tasks.length, icon: Clock, color: 'text-blue-600', bg: 'bg-blue-100' },
     { label: 'Completed Tasks', value: tasks.filter(t => t.status === 'done').length, icon: CheckCircle, color: 'text-green-600', bg: 'bg-green-100' },
     { label: 'Active Projects', value: projects.length, icon: Briefcase, color: 'text-purple-600', bg: 'bg-purple-100' },
+<<<<<<< HEAD
+=======
+    { label: 'Remaining Leaves', value: (user.totalLeaves || 24) - (user.usedLeaves || 0), icon: Calendar, color: 'text-orange-600', bg: 'bg-orange-100' },
+>>>>>>> 0a06ae65cf91bb6d9063e587f7198e572e340cc3
   ];
 
   const markPresent = async () => {
